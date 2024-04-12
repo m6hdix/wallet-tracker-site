@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 
 const token = Cookies.get("token");
 const api = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: "https://wallet-tracker-site-back.vercel.app/api",
   headers: {
     Authorization: `Bearer ${token}`,
   },
