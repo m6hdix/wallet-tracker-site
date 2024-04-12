@@ -12,7 +12,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
+import api from "../../config/axiosConfig";
 
 const defaultTheme = createTheme();
 
@@ -22,16 +23,13 @@ const SignUp = () => {
     const data = new FormData(event.currentTarget);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/register",
-        {
-          firstName: data.get("firstName"),
-          lastName: data.get("lastName"),
-          email: data.get("email"),
-          username: data.get("username"), // Make sure to add this field in your form
-          password: data.get("password"),
-        }
-      );
+      const response = await api.post("/auth/register", {
+        firstName: data.get("firstName"),
+        lastName: data.get("lastName"),
+        email: data.get("email"),
+        username: data.get("username"), // Make sure to add this field in your form
+        password: data.get("password"),
+      });
 
       console.log(response.data);
       // Handle successful registration (e.g., navigate to the login page)

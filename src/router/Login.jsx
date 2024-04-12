@@ -12,7 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../config/axiosConfig";
 import Cookies from "js-cookie";
 
 const defaultTheme = createTheme();
@@ -24,8 +24,8 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/api/auth/login",
+      const response = await api.post(
+        "/auth/login",
         {
           email: data.get("email"),
           password: data.get("password"),
