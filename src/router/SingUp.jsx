@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -11,6 +12,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
 
 import api from "../../config/axiosConfig";
@@ -18,28 +20,40 @@ import api from "../../config/axiosConfig";
 const defaultTheme = createTheme();
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [responseMessage, setResponseMessage] = useState("");
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
 
     try {
+      setLoading(true); // نمایش لودینگ
       const response = await api.post("/auth/register", {
         firstName: data.get("firstName"),
         lastName: data.get("lastName"),
         email: data.get("email"),
-        username: data.get("username"), // Make sure to add this field in your form
+        username: data.get("username"),
         password: data.get("password"),
       });
+      setLoading(false); // مخفی کردن لودینگ
+      setResponseMessage(
+        "Registration successful! Redirecting to login page..."
+      ); // تنظیم پیام موفقیت آمیز
 
-      console.log(response.data);
-      // Handle successful registration (e.g., navigate to the login page)
+      // Navigate to login page after successful registration
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000); // Navigate after 2 seconds
     } catch (error) {
+      setLoading(false); // مخفی کردن لودینگ در صورت خطا
       console.error("Error during registration:", error.response.data);
+      setResponseMessage("Registration failed. Please try again."); // تنظیم پیام خطا
       // Handle registration error (e.g., display an error message)
     }
   };
 
-  const navigate = useNavigate();
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
@@ -141,6 +155,15 @@ const SignUp = () => {
                 </Link>
               </Grid>
             </Grid>
+            {loading && <CircularProgress />}
+            {responseMessage && (
+              <Typography
+                variant="body1"
+                color={responseMessage.includes("failed") ? "error" : "success"}
+              >
+                {responseMessage}
+              </Typography>
+            )}
           </Box>
         </Box>
       </Container>
