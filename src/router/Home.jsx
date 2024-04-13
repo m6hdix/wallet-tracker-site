@@ -17,7 +17,7 @@ import AdbIcon from "@mui/icons-material/Adb";
 import Cookies from "js-cookie";
 import api from "../../config/axiosConfig";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Management Wallets", "Pricing"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
