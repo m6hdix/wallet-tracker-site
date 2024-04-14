@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     element: <SingUp />,
   },
   {
-    path: "/WalletManagement",
+    path: "/management wallets",
     element: <WalletAddresses />,
   },
 ]);
