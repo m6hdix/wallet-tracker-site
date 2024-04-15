@@ -76,7 +76,12 @@ const WalletAddresses = () => {
       <List>
         {addresses.map((address) => (
           <ListItem key={address._id}>
-            <Avatar alt={address.network} src={address.iconUrl} />
+            <Avatar
+              alt={address.network}
+              src={
+                "https://www.blockchain.com/explorer/_next/static/media/eth.8b071eb3.png"
+              }
+            />
             <ListItemText
               primary={address.address}
               secondary={address.name || "No name"}
