@@ -37,9 +37,7 @@ const WalletAddresses = () => {
         address: newAddress,
         name: newName,
       });
-      setAddresses([...addresses, response.data]);
-      setNewAddress("");
-      setNewName("");
+      setAddresses([...addresses, response.data.data]);
     } catch (error) {
       console.error("Error adding wallet address:", error.response.data);
     }
@@ -78,9 +76,8 @@ const WalletAddresses = () => {
           <ListItem key={address._id}>
             <Avatar
               alt={address.network}
-              src={
-                "https://www.blockchain.com/explorer/_next/static/media/eth.8b071eb3.png"
-              }
+              src={address.icon}
+              style={{ margin: "0 20px" }}
             />
             <ListItemText
               primary={address.address}
